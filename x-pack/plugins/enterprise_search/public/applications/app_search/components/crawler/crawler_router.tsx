@@ -13,13 +13,14 @@ import { SetAppSearchChrome as SetPageChrome } from '../../../shared/kibana_chro
 import { getEngineBreadcrumbs } from '../engine';
 
 import { CrawlerLanding } from './crawler_landing';
+import { CrawlerOverview } from './crawler_overview';
 
 export const CrawlerRouter: React.FC = () => {
   return (
     <Switch>
       <Route>
         <SetPageChrome trail={getEngineBreadcrumbs()} />
-        <CrawlerLanding />
+        {process.env.NODE_ENV === 'development' ? <CrawlerOverview /> : <CrawlerLanding />}
       </Route>
     </Switch>
   );

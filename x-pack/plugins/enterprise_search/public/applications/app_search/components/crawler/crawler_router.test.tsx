@@ -13,7 +13,7 @@ import { Switch } from 'react-router-dom';
 
 import { shallow } from 'enzyme';
 
-import { CrawlerLanding } from './crawler_landing';
+import { CrawlerOverview } from './crawler_overview';
 import { CrawlerRouter } from './crawler_router';
 
 describe('CrawlerRouter', () => {
@@ -29,6 +29,6 @@ describe('CrawlerRouter', () => {
     const wrapper = shallow(<CrawlerRouter />);
 
     expect(wrapper.find(Switch)).toHaveLength(1);
-    expect(wrapper.find(CrawlerLanding)).toHaveLength(1);
+    expect(wrapper.find(CrawlerOverview)).toHaveLength(1);
   });
 });
