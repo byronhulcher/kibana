@@ -18,11 +18,13 @@ interface MultiInputRowsActions {
   addValue(): void;
   deleteValue(indexToDelete: number): { indexToDelete: number };
   editValue(index: number, newValueValue: string): { index: number; newValueValue: string };
+  onChange(): void;
 }
 
 interface MultiInputRowsProps {
-  values: string[];
   id: string;
+  onChange?(values: string[]): void;
+  values: string[];
 }
 
 export const MultiInputRowsLogic = kea<
@@ -34,6 +36,7 @@ export const MultiInputRowsLogic = kea<
     addValue: true,
     deleteValue: (indexToDelete) => ({ indexToDelete }),
     editValue: (index, newValueValue) => ({ index, newValueValue }),
+    onChange: true,
   }),
   reducers: ({ props }) => ({
     values: [
@@ -63,4 +66,14 @@ export const MultiInputRowsLogic = kea<
     hasEmptyValues: [(selectors) => [selectors.values], (values) => values.indexOf('') >= 0],
     hasOnlyOneValue: [(selectors) => [selectors.values], (values) => values.length <= 1],
   },
+  listeners: ({ actions, values, props }) => ({
+    addValue: actions.onChange,
+    deleteValue: actions.onChange,
+    editValue: actions.onChange,
+    onChange: () => {
+      if (props.onChange) {
+        props.onChange(values.values);
+      }
+    },
+  }),
 });

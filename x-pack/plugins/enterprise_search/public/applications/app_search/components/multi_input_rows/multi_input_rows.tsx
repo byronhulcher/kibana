@@ -45,15 +45,9 @@ export const MultiInputRows: React.FC<Props> = ({
   deleteRowLabel = DELETE_VALUE_BUTTON_LABEL,
   inputPlaceholder = INPUT_ROW_PLACEHOLDER,
 }) => {
-  const logic = MultiInputRowsLogic({ id, values: initialValues });
+  const logic = MultiInputRowsLogic({ id, onChange, values: initialValues });
   const { values, addedNewRow, hasEmptyValues, hasOnlyOneValue } = useValues(logic);
   const { addValue, editValue, deleteValue } = useActions(logic);
-
-  useEffect(() => {
-    if (onChange) {
-      onChange(filterEmptyValues(values));
-    }
-  }, [values]);
 
   return (
     <EuiForm
